@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="cs">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Masáže Petr Kubík</title>
+
+		<style>
+			:root {
+				color-scheme: light;
+
+				--bg: #ffffff;
+				--surface: #f6f7f9;
+				--text: #0f172a;
+				--muted: #475569;
+				--border: rgba(15, 23, 42, 0.12);
+
+				--primary: #0f172a;
+				--primary-contrast: #ffffff;
+				--focus: rgba(15, 23, 42, 0.18);
+
+				--radius: 14px;
+				--shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+
+				--container: 1080px;
+			}
+
+			* {
+				box-sizing: border-box;
+			}
+
+			html,
+			body {
+				height: 100%;
+			}
+
+			body {
+				margin: 0;
+				font-family:
+					system-ui,
+					-apple-system,
+					Segoe UI,
+					Roboto,
+					Ubuntu,
+					Cantarell,
+					Noto Sans,
+					Arial,
+					"Apple Color Emoji",
+					"Segoe UI Emoji";
+				color: var(--text);
+				background: var(--bg);
+				line-height: 1.5;
+			}
+
+			a {
+				color: inherit;
+				text-decoration: none;
+			}
+
+			a:hover {
+				text-decoration: underline;
+			}
+
+			.container {
+				width: min(100% - 32px, var(--container));
+				margin-inline: auto;
+			}
+
+			.skip-link {
+				position: absolute;
+				left: -999px;
+				top: 8px;
+				background: var(--primary);
+				color: var(--primary-contrast);
+				padding: 10px 12px;
+				border-radius: 10px;
+			}
+			.skip-link:focus {
+				left: 16px;
+				z-index: 50;
+				outline: 3px solid var(--focus);
+				outline-offset: 2px;
+			}
+
+			header {
+				position: sticky;
+				top: 0;
+				z-index: 20;
+				background: rgba(255, 255, 255, 0.92);
+				backdrop-filter: blur(10px);
+				border-bottom: 1px solid var(--border);
+			}
+
+			.nav {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 16px;
+				padding: 14px 0;
+			}
+
+			.brand {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				min-width: 0;
+			}
+
+			.brand-mark {
+				width: 36px;
+				height: 36px;
+				border-radius: 12px;
+				background: var(--primary);
+				box-shadow: var(--shadow);
+			}
+
+			.brand-title {
+				display: grid;
+				gap: 2px;
+				min-width: 0;
+			}
+
+			.brand-title strong {
+				font-size: 14px;
+				letter-spacing: 0.02em;
+			}
+
+			.brand-title span {
+				font-size: 12px;
+				color: var(--muted);
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+
+			.nav-links {
+				display: flex;
+				align-items: center;
+				gap: 14px;
+				flex-wrap: wrap;
+				justify-content: flex-end;
+			}
+
+			.nav-links a {
+				font-size: 13px;
+				color: var(--muted);
+				padding: 8px 10px;
+				border-radius: 10px;
+			}
+
+			.nav-links a:focus-visible {
+				outline: 3px solid var(--focus);
+				outline-offset: 2px;
+			}
+
+			.btn {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				gap: 10px;
+				border: 1px solid transparent;
+				border-radius: 999px;
+				padding: 12px 16px;
+				font-weight: 600;
+				font-size: 14px;
+				cursor: pointer;
+			}
+
+			.btn-primary {
+				background: var(--primary);
+				color: var(--primary-contrast);
+				box-shadow: var(--shadow);
+			}
+
+			.btn-secondary {
+				background: transparent;
+				color: var(--primary);
+				border-color: var(--border);
+			}
+
+			.btn:focus-visible {
+				outline: 3px solid var(--focus);
+				outline-offset: 2px;
+			}
+
+			.hero {
+				padding: 48px 0 28px;
+			}
+
+			.hero-grid {
+				display: grid;
+				grid-template-columns: 1.1fr 0.9fr;
+				gap: 24px;
+				align-items: stretch;
+			}
+
+			.hero-card {
+				border: 1px solid var(--border);
+				border-radius: var(--radius);
+				background: var(--bg);
+				box-shadow: var(--shadow);
+				padding: 28px;
+			}
+
+			.eyebrow {
+				color: var(--muted);
+				font-size: 13px;
+				letter-spacing: 0.02em;
+				margin: 0 0 10px;
+			}
+
+			h1 {
+				margin: 0 0 10px;
+				font-size: clamp(28px, 3.2vw, 44px);
+				line-height: 1.12;
+				letter-spacing: -0.02em;
+			}
+
+			.lead {
+				margin: 0 0 18px;
+				color: var(--muted);
+				font-size: 16px;
+				max-width: 60ch;
+			}
+
+			.hero-actions {
+				display: flex;
+				gap: 12px;
+				flex-wrap: wrap;
+				margin-top: 18px;
+			}
+
+			.hero-meta {
+				display: grid;
+				grid-template-columns: 1fr;
+				gap: 12px;
+			}
+
+			.meta-box {
+				border: 1px solid var(--border);
+				border-radius: var(--radius);
+				background: var(--surface);
+				padding: 18px;
+			}
+
+			.meta-box h3 {
+				margin: 0 0 6px;
+				font-size: 14px;
+			}
+
+			.meta-box p {
+				margin: 0;
+				color: var(--muted);
+				font-size: 13px;
+			}
+
+			section {
+				padding: 24px 0;
+			}
+
+			.section-title {
+				margin: 0 0 12px;
+				font-size: 18px;
+				letter-spacing: -0.01em;
+			}
+
+			.grid {
+				display: grid;
+				gap: 14px;
+			}
+
+			.grid-3 {
+				grid-template-columns: repeat(3, 1fr);
+			}
+
+			.card {
+				border: 1px solid var(--border);
+				border-radius: var(--radius);
+				background: var(--bg);
+				padding: 18px;
+			}
+
+			.card h3 {
+				margin: 0 0 6px;
+				font-size: 15px;
+			}
+
+			.card p,
+			.card li {
+				margin: 0;
+				color: var(--muted);
+				font-size: 14px;
+			}
+
+			.card ul {
+				margin: 10px 0 0;
+				padding-left: 18px;
+			}
+
+			.two-col {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 14px;
+			}
+
+			.note {
+				margin: 10px 0 0;
+				color: var(--muted);
+				font-size: 13px;
+			}
+
+			footer {
+				border-top: 1px solid var(--border);
+				padding: 18px 0;
+				color: var(--muted);
+				font-size: 13px;
+			}
+
+			@media (max-width: 880px) {
+				.hero-grid {
+					grid-template-columns: 1fr;
+				}
+				.grid-3 {
+					grid-template-columns: 1fr;
+				}
+				.two-col {
+					grid-template-columns: 1fr;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<a class="skip-link" href="#obsah">Přeskočit na obsah</a>
+
+		<header>
+			<div class="container">
+				<nav class="nav" aria-label="Hlavní navigace">
+					<a class="brand" href="#top" aria-label="Masáže Petr Kubík – úvod">
+						<span class="brand-mark" aria-hidden="true"></span>
+						<span class="brand-title">
+							<strong>Masáže Petr Kubík</strong>
+							<span>Klasická • Sportovní • Relaxační</span>
+						</span>
+					</a>
+
+					<div class="nav-links">
+						<a href="#sluzby">Služby</a>
+						<a href="#o-mne">O mně</a>
+						<a href="#cenik">Ceník</a>
+						<a href="#kontakt">Kontakt</a>
+						<a class="btn btn-primary" href="#kontakt">Objednat se</a>
+					</div>
+				</nav>
+			</div>
+		</header>
+
+		<main id="obsah">
+			<div id="top" class="hero">
+				<div class="container">
+					<div class="hero-grid">
+						<div class="hero-card">
+							<p class="eyebrow">Masér Petr Kubík</p>
+							<h1>Masáž, která uleví a pomůže regeneraci</h1>
+							<p class="lead">
+								Nabízím základní typy masáží pro uvolnění přetížených svalů, podporu
+								regenerace a celkový relax. Termín domluvíme rychle po telefonu nebo
+								e‑mailem.
+							</p>
+							<div class="hero-actions">
+								<a class="btn btn-primary" href="#kontakt">Chci termín</a>
+								<a class="btn btn-secondary" href="#sluzby">Zobrazit služby</a>
+							</div>
+							<p class="note">
+								Pozn.: Texty a ceny si klidně upravíme podle reality (lokalita, délky,
+								specializace).
+							</p>
+						</div>
+
+						<div class="hero-meta" aria-label="Rychlé informace">
+							<div class="meta-box">
+								<h3>Objednání</h3>
+								<p>Telefon / e‑mail (viz kontakt níže)</p>
+							</div>
+							<div class="meta-box">
+								<h3>Pro koho</h3>
+								<p>
+									Sedavé zaměstnání, sport, přetížení, ztuhlost zad a šíje
+								</p>
+							</div>
+							<div class="meta-box">
+								<h3>Co očekávat</h3>
+								<p>Individuální přístup, domluva tlaku, doporučení po masáži</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<section id="sluzby">
+				<div class="container">
+					<h2 class="section-title">Služby</h2>
+					<div class="grid grid-3">
+						<article class="card">
+							<h3>Klasická masáž</h3>
+							<p>Uvolnění ztuhlých svalů, šíje, zad a celková úleva.</p>
+						</article>
+						<article class="card">
+							<h3>Sportovní masáž</h3>
+							<p>Podpora regenerace, práce s přetížením po sportu.</p>
+						</article>
+						<article class="card">
+							<h3>Relaxační masáž</h3>
+							<p>Zklidnění, příjemná intenzita, důraz na relax.</p>
+						</article>
+					</div>
+				</div>
+			</section>
+
+			<section id="o-mne">
+				<div class="container">
+					<h2 class="section-title">O mně</h2>
+					<div class="two-col">
+						<div class="card">
+							<h3>Petr Kubík</h3>
+							<p>
+								Jsem masér a zaměřuji se na základní masérské techniky pro uvolnění
+								a regeneraci. Před masáží se krátce domluvíme na potížích a cíli
+								(např. šíje, bedra, nohy).
+							</p>
+						</div>
+						<div class="card">
+							<h3>Jak probíhá návštěva</h3>
+							<ul>
+								<li>Krátká domluva – co a kde bolí / co chcete uvolnit</li>
+								<li>Masáž s domluvou intenzity</li>
+								<li>Doporučení po masáži (pitný režim, klid/režim)</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="cenik">
+				<div class="container">
+					<h2 class="section-title">Ceník (orientačně)</h2>
+					<div class="grid grid-3">
+						<article class="card">
+							<h3>30 minut</h3>
+							<p>— Kč</p>
+						</article>
+						<article class="card">
+							<h3>60 minut</h3>
+							<p>— Kč</p>
+						</article>
+						<article class="card">
+							<h3>90 minut</h3>
+							<p>— Kč</p>
+						</article>
+					</div>
+					<p class="note">
+						Ceny a délky doplníme podle toho, co reálně nabízíte.
+					</p>
+				</div>
+			</section>
+
+			<section id="kontakt">
+				<div class="container">
+					<h2 class="section-title">Kontakt</h2>
+					<div class="two-col">
+						<div class="card">
+							<h3>Objednání</h3>
+							<p>
+								Telefon: <a href="tel:+420000000000">+420 000 000 000</a><br />
+								E‑mail: <a href="mailto:info@example.cz">info@example.cz</a>
+							</p>
+							<p class="note">
+								Nahraďte prosím skutečným číslem a e‑mailem.
+							</p>
+						</div>
+						<div class="card">
+							<h3>Kde mě najdete</h3>
+							<p>
+								Lokalita: doplnit (město / adresa)<br />
+								Časové možnosti: dle domluvy
+							</p>
+							<div class="hero-actions" style="margin-top: 14px">
+								<a class="btn btn-primary" href="tel:+420000000000">Zavolat</a>
+								<a class="btn btn-secondary" href="mailto:info@example.cz">Napsat e‑mail</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<footer>
+			<div class="container">
+				<div>
+					© <span id="year"></span> Masáže Petr Kubík • Jednostránkový web
+				</div>
+			</div>
+		</footer>
+
+		<script>
+			document.getElementById("year").textContent = String(new Date().getFullYear());
+		</script>
+	</body>
+</html>
